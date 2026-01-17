@@ -1301,15 +1301,40 @@
     document.getElementById('quoteForm').addEventListener('submit', function (e) {
       e.preventDefault();
 
-      // Hide form and show success
-      this.style.display = 'none';
-      document.querySelector('.form-progress').style.display = 'none';
-      document.getElementById('formSuccess').classList.add('active');
+      const btn = this.querySelector('button[type="submit"]');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = 'Sending...';
+      btn.disabled = true;
 
-      // Re-initialize icons
-      lucide.createIcons();
+      const formData = new FormData(this);
+
+      // Add text versions of the multi-choice fields for better email readability
+      const projectTypes = Array.from(document.querySelectorAll('input[name="project_type"]:checked'))
+        .map(cb => cb.value).join(', ');
+      formData.set('project_type', projectTypes);
+      formData.set('_subject', 'New YardGuard Quote Request');
+      formData.set('_template', 'table'); // Makes the email look clean
+      formData.set('_captcha', 'false');  // Disables the "I'm not a robot" check
+
+      fetch('https://formsubmit.co/ajax/andrewgaca@icloud.com', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Hide form and show success
+          document.getElementById('quoteForm').style.display = 'none';
+          document.querySelector('.form-progress').style.display = 'none';
+          document.getElementById('formSuccess').classList.add('active');
+          lucide.createIcons();
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Something went wrong. Please try again or call (647) 216-7787.');
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        });
     });
-
     // Check for package parameter in URL
     const urlParams = new URLSearchParams(window.location.search);
     const packageParam = urlParams.get('package');
