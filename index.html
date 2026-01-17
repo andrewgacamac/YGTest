@@ -5,9 +5,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Artificial Turf Installation Mississauga | 3D Design | Yard Guard</title>
+  <title>Artificial Turf Installation Mississauga | Design Visualization | Yard Guard</title>
   <meta name="description"
-    content="Transform your backyard with artificial turf. See your yard in 3D before we build. Pet-friendly options, putting greens & lawn replacement. Free estimates in Mississauga & GTA. 10-year warranty.">
+    content="Transform your backyard with artificial turf. See your yard visualized before we build. Pet-friendly options, putting greens & lawn replacement. Free estimates in Mississauga & GTA. 10-year warranty.">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1011,37 +1011,48 @@
 
     .gallery-card__image {
       position: relative;
-      height: 200px;
+      height: 240px;
       overflow: hidden;
     }
 
-    .gallery-card__before,
-    .gallery-card__after {
+    .gallery-card__view {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      transition: opacity 0.5s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      color: white;
-      font-weight: 600;
+      transition: opacity 0.4s ease-in-out;
     }
 
-    .gallery-card__before {
-      background: linear-gradient(135deg, #795548 0%, #5D4037 100%);
+    .gallery-card__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gallery-card__label {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 6px 12px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      z-index: 10;
+    }
+
+    .gallery-card__view--before {
+      z-index: 2;
+    }
+
+    .gallery-card__view--after {
       z-index: 1;
     }
 
-    .gallery-card__after {
-      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
-      z-index: 0;
-    }
-
-    .gallery-card:hover .gallery-card__before {
+    .gallery-card:hover .gallery-card__view--before {
       opacity: 0;
     }
 
@@ -1568,8 +1579,8 @@
 
     <div class="hero__overlay">
       <h1 class="hero__headline">Transform Your Backyard</h1>
-      <p class="hero__subheadline">See your yard in 3D before we break ground</p>
-      <a href="quote.html" class="btn-primary btn-primary--large hero__cta">Get Your Free 3D Design</a>
+      <p class="hero__subheadline">See your yard visualized before we break ground</p>
+      <a href="quote.html" class="btn-primary btn-primary--large hero__cta">Get Your Free Design Visualization</a>
     </div>
 
     <div class="trust-bar">
@@ -1698,8 +1709,8 @@
             <span class="step__icon">🎨</span>
             <span class="step__number">2</span>
           </div>
-          <h4 class="step__title">3D Design</h4>
-          <p class="step__description">See YOUR backyard transformed in a photorealistic 3D rendering — before we break
+          <h4 class="step__title">Design Visualization</h4>
+          <p class="step__description">See YOUR backyard transformed in a photorealistic rendering — before we break
             ground.</p>
           <div class="step__meta">
             <span class="step__meta-item">⏱ 3-5 days</span>
@@ -1734,51 +1745,7 @@
   <!-- ============================================
      FINANCING BANNER
      ============================================ -->
-  <div class="financing-banner"
-    style="background: #E3F2FD; padding: 24px; text-align: center; border-radius: 12px; margin: 40px auto; max-width: 800px; border: 1px solid #BBDEFB;">
-    <h3 style="color: #1565C0; margin-bottom: 8px;">💳 Flexible Financing Available</h3>
-    <p style="color: #0D47A1; margin-bottom: 16px;">Get your dream backyard starting at just
-      <strong>$215/month</strong>.
-    </p>
-    <a href="quote.html?interest=financing" style="text-decoration: underline; color: #1565C0; font-weight: 600;">See
-      Payment Options →</a>
-  </div>
 
-  <!-- ============================================
-         LEAD ARBITRAGE SECTION
-         ============================================ -->
-  <section class="lead-arbitrage" style="padding: 80px 24px; background: white;">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-header__headline">The Complete Backyard Solution</h2>
-        <p class="section-header__subheadline">One crew for the turf. One call for everything else.</p>
-      </div>
-
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 1000px; margin: 0 auto;">
-        <!-- Decks -->
-        <div style="text-align: center; padding: 24px; border: 1px solid #E0E0E0; border-radius: 16px;">
-          <div style="font-size: 40px; margin-bottom: 16px;">🪵</div>
-          <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">Decks & Pergolas</h3>
-          <p style="color: #616161; font-size: 14px;">We partner with top-rated carpenters so you don't have to juggle
-            contractors.</p>
-        </div>
-        <!-- Fences -->
-        <div style="text-align: center; padding: 24px; border: 1px solid #E0E0E0; border-radius: 16px;">
-          <div style="font-size: 40px; margin-bottom: 16px;">🚧</div>
-          <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">Modern Fencing</h3>
-          <p style="color: #616161; font-size: 14px;">Privacy screens and security fences installed in coordination with
-            your turf.</p>
-        </div>
-        <!-- Lighting -->
-        <div style="text-align: center; padding: 24px; border: 1px solid #E0E0E0; border-radius: 16px;">
-          <div style="font-size: 40px; margin-bottom: 16px;">💡</div>
-          <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">Landscape Lighting</h3>
-          <p style="color: #616161; font-size: 14px;">Illuminate your new putting green with pro-grade ambient lighting.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section class="packages" id="packages">
     <div class="container">
@@ -1889,8 +1856,14 @@
       <div class="gallery__grid">
         <div class="gallery-card">
           <div class="gallery-card__image">
-            <div class="gallery-card__before">BEFORE</div>
-            <div class="gallery-card__after">AFTER</div>
+            <div class="gallery-card__view gallery-card__view--before">
+              <span class="gallery-card__label">BEFORE</span>
+              <img src="images/before-pet.png" alt="Pet Yard Before" class="gallery-card__img">
+            </div>
+            <div class="gallery-card__view gallery-card__view--after">
+              <span class="gallery-card__label">AFTER</span>
+              <img src="images/gallery-4.jpg" alt="Pet Yard After" class="gallery-card__img">
+            </div>
           </div>
           <div class="gallery-card__content">
             <p class="gallery-card__location">
@@ -1903,8 +1876,14 @@
 
         <div class="gallery-card">
           <div class="gallery-card__image">
-            <div class="gallery-card__before">BEFORE</div>
-            <div class="gallery-card__after">AFTER</div>
+            <div class="gallery-card__view gallery-card__view--before">
+              <span class="gallery-card__label">BEFORE</span>
+              <img src="images/before-lawn.png" alt="Easy Lawn Before" class="gallery-card__img">
+            </div>
+            <div class="gallery-card__view gallery-card__view--after">
+              <span class="gallery-card__label">AFTER</span>
+              <img src="images/gallery-6.jpg" alt="Easy Lawn After" class="gallery-card__img">
+            </div>
           </div>
           <div class="gallery-card__content">
             <p class="gallery-card__location">
@@ -1917,8 +1896,14 @@
 
         <div class="gallery-card">
           <div class="gallery-card__image">
-            <div class="gallery-card__before">BEFORE</div>
-            <div class="gallery-card__after">AFTER</div>
+            <div class="gallery-card__view gallery-card__view--before">
+              <span class="gallery-card__label">BEFORE</span>
+              <img src="images/before-golf.png" alt="Golfer's Green Before" class="gallery-card__img">
+            </div>
+            <div class="gallery-card__view gallery-card__view--after">
+              <span class="gallery-card__label">AFTER</span>
+              <img src="images/gallery-8.jpg" alt="Golfer's Green After" class="gallery-card__img">
+            </div>
           </div>
           <div class="gallery-card__content">
             <p class="gallery-card__location">
@@ -1931,8 +1916,14 @@
 
         <div class="gallery-card">
           <div class="gallery-card__image">
-            <div class="gallery-card__before">BEFORE</div>
-            <div class="gallery-card__after">AFTER</div>
+            <div class="gallery-card__view gallery-card__view--before">
+              <span class="gallery-card__label">BEFORE</span>
+              <img src="images/hero-before.jpg" alt="Premium Integration Before" class="gallery-card__img">
+            </div>
+            <div class="gallery-card__view gallery-card__view--after">
+              <span class="gallery-card__label">AFTER</span>
+              <img src="images/hero-after.jpg" alt="Premium Integration After" class="gallery-card__img">
+            </div>
           </div>
           <div class="gallery-card__content">
             <p class="gallery-card__location">
@@ -1964,7 +1955,8 @@
       </div>
 
       <p class="testimonial__quote">
-        "We couldn't believe how accurate the 3D design was. When the crew finished, it looked EXACTLY like the
+        "We couldn't believe how accurate the design visualization was. When the crew finished, it looked EXACTLY like
+        the
         rendering. Our kids and dog are out there every single day now. Best investment we've ever made in our home."
       </p>
 
@@ -2032,9 +2024,11 @@
   <section class="final-cta" id="quote">
     <div class="final-cta__content">
       <h2 class="final-cta__headline">Ready to Transform Your Backyard?</h2>
-      <p class="final-cta__subheadline">Get your free 3D design and see your yard transformed — before we break ground.
+      <p class="final-cta__subheadline">Get your free design visualization and see your yard transformed — before we
+        break ground.
       </p>
-      <a href="quote.html" class="btn-primary btn-primary--white btn-primary--large">Get Your Free 3D Design</a>
+      <a href="quote.html" class="btn-primary btn-primary--white btn-primary--large">Get Your Free Design
+        Visualization</a>
       <p class="final-cta__phone">or call <a href="tel:+16472167787">(647) 216-7787</a></p>
     </div>
   </section>
