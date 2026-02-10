@@ -21,6 +21,7 @@ try {
   } else {
     console.error("Supabase keys are missing! Check your environment variables.");
   }
+} catch (error) {
   console.error("Failed to initialize Supabase client:", error);
 }
 
