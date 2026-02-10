@@ -23,3 +23,5 @@ venv/
 tmp/
 .gemini/
 .agent/
+.env
+.env.local
