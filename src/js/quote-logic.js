@@ -166,21 +166,7 @@ async function handleFormSubmit(e) {
 
     } catch (error) {
         console.error('Submission Error:', error);
-
-        // Detailed Debugging for User
-        import('../lib/supabase.js').then(({ checkConfiguration }) => {
-            const config = checkConfiguration();
-            const debugMsg = `
-Error: ${error.message}
-
---- Debug Info ---
-Supabase URL: ${config.urlPreview} (Length: ${config.urlLength})
-Supabase Key: ${config.keyPreview} (Length: ${config.keyLength})
-Client Ready: ${config.isClientInitialized}
-`;
-            alert(debugMsg);
-        });
-
+        alert('Error: ' + error.message);
         btn.innerHTML = originalText;
         btn.disabled = false;
     }
