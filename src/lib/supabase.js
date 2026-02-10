@@ -21,8 +21,19 @@ try {
   } else {
     console.error("Supabase keys are missing! Check your environment variables.");
   }
-} catch (error) {
   console.error("Failed to initialize Supabase client:", error);
 }
+
+export const checkConfiguration = () => {
+  return {
+    urlConfigured: !!supabaseUrl,
+    urlLength: supabaseUrl ? supabaseUrl.length : 0,
+    urlPreview: supabaseUrl ? supabaseUrl.substring(0, 8) + '...' : 'N/A',
+    keyConfigured: !!supabaseAnonKey,
+    keyLength: supabaseAnonKey ? supabaseAnonKey.length : 0,
+    keyPreview: supabaseAnonKey ? supabaseAnonKey.substring(0, 5) + '...' + supabaseAnonKey.substring(supabaseAnonKey.length - 5) : 'N/A',
+    isClientInitialized: !!supabase
+  };
+};
 
 export { supabase };
