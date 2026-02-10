@@ -12,4 +12,17 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.error("Missing Supabase Environment Variables!");
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Safe initialization of Supabase client
+let supabase = null;
+
+try {
+  if (supabaseUrl && supabaseAnonKey) {
+    supabase = createClient(supabaseUrl, supabaseAnonKey);
+  } else {
+    console.error("Supabase keys are missing! Check your environment variables.");
+  }
+} catch (error) {
+  console.error("Failed to initialize Supabase client:", error);
+}
+
+export { supabase };

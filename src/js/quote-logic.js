@@ -69,10 +69,10 @@ async function handleFormSubmit(e) {
         // --- Supabase Integration ---
 
         // 1. Prepare Data Object
-        
+
         // helper to get all checkbox values properly
         // 'project_type' is a multi-select checkbox group
-        const projectTypes = formData.getAll('project_type'); 
+        const projectTypes = formData.getAll('project_type');
 
         const leadPayload = {
             // -- Contact Info --
@@ -80,7 +80,7 @@ async function handleFormSubmit(e) {
             last_name: formData.get('lastName'),
             email: formData.get('email'),
             phone: formData.get('phone') || null,
-            
+
             // -- Location Info (Split for better data quality) --
             street_address: formData.get('address'),
             city: formData.get('city'),
@@ -93,17 +93,21 @@ async function handleFormSubmit(e) {
             project_type: projectTypes,                // Array of strings (e.g. ["backyard", "patio"])
             approximate_size: formData.get('size'),    // Select dropdown
             timeline: formData.get('timeline'),        // Select dropdown
-            
+
             // -- Marketing & Context --
             referral_source: formData.get('howHeard'),
             message_content: formData.get('message'),  // Textarea
-            
+
             status: 'NEW'
         };
 
         console.log("Submitting Payload:", leadPayload); // Debugging aid
 
         // 2. Insert into DB
+        if (!supabase) {
+            throw new Error("Supabase client is not initialized. Missing environment variables?");
+        }
+
         const { data: leadData, error: leadError } = await supabase
             .from('leads')
             .insert([leadPayload])
