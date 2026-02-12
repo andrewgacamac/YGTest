@@ -101,20 +101,10 @@ async function handleFormSubmit(e) {
 
         // 2. Insert into DB using RPC (Bypasses RLS)
         // We use a Remote Procedure Call "submit_lead" which runs as Admin on the server.
-        const { data: leadId, error: leadError } = await supabase.rpc('submit_lead', {
-            p_first_name: leadPayload.first_name || null,
-            p_last_name: leadPayload.last_name || null,
-            p_email: leadPayload.email || null,
-            p_phone: leadPayload.phone || null,
-            p_address: leadPayload.address || null, // Fixed: key in leadPayload is 'address'
-            p_city: leadPayload.city || null,
-            p_postal_code: leadPayload.postal_code || null,
-            p_package_interest: leadPayload.package_interest || null,
-            p_project_type: leadPayload.project_type || [], // Empty array fallback
-            p_approximate_size: leadPayload.approximate_size || null,
-            p_timeline: leadPayload.timeline || null,
-            p_referral_source: leadPayload.referral_source || null,
-            p_message_content: leadPayload.message_content || null
+        // 2. Insert into DB using RPC v2 (Single JSON Wrapper)
+        // This avoids argument count errors by sending one JSON object called 'payload'
+        const { data: leadId, error: leadError } = await supabase.rpc('submit_lead_v2', {
+            payload: leadPayload
         });
 
         if (leadError) {
