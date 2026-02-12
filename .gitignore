@@ -25,3 +25,11 @@ tmp/
 .agent/
 .env
 .env.local
+
+# Build
+dist/
+
+# Local Debug Scripts
+debug_*.mjs
+fix_supabase_*.sql
+FRONTEND_PROMPT.md

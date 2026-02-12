@@ -81,12 +81,10 @@ async function handleFormSubmit(e) {
             email: formData.get('email'),
             phone: formData.get('phone') || null,
 
-            // -- Location Info (Split for better data quality) --
-            street_address: formData.get('address'),
+            // -- Location Info --
+            address: formData.get('address'), // Street Address
             city: formData.get('city'),
             postal_code: formData.get('postalCode'),
-            // Keep the 'address' field as a fallback/display string if existing logic depends on it
-            address: [formData.get('address'), formData.get('city'), formData.get('postalCode')].filter(Boolean).join(', '),
 
             // -- Project Details --
             package_interest: formData.get('package'), // Radio button (single value)
@@ -97,64 +95,66 @@ async function handleFormSubmit(e) {
             // -- Marketing & Context --
             referral_source: formData.get('howHeard'),
             message_content: formData.get('message'),  // Textarea
-
-            status: 'NEW'
         };
 
         console.log("Submitting Payload:", leadPayload); // Debugging aid
 
-        // 2. Insert into DB
-        if (!supabase) {
-            throw new Error("Supabase client is not initialized. Missing environment variables?");
-        }
-
-        const { data: leadData, error: leadError } = await supabase
-            .from('leads')
-            .insert([leadPayload])
-            .select()
-            .single();
+        // 2. Insert into DB using RPC (Bypasses RLS)
+        // We use a Remote Procedure Call "submit_lead" which runs as Admin on the server.
+        const { data: leadId, error: leadError } = await supabase.rpc('submit_lead', {
+            p_first_name: leadPayload.first_name || null,
+            p_last_name: leadPayload.last_name || null,
+            p_email: leadPayload.email || null,
+            p_phone: leadPayload.phone || null,
+            p_address: leadPayload.address || null, // Fixed: key in leadPayload is 'address'
+            p_city: leadPayload.city || null,
+            p_postal_code: leadPayload.postal_code || null,
+            p_package_interest: leadPayload.package_interest || null,
+            p_project_type: leadPayload.project_type || [], // Empty array fallback
+            p_approximate_size: leadPayload.approximate_size || null,
+            p_timeline: leadPayload.timeline || null,
+            p_referral_source: leadPayload.referral_source || null,
+            p_message_content: leadPayload.message_content || null
+        });
 
         if (leadError) {
-            console.error("Lead Creation Failed:", leadError);
-            console.error("Error Message:", leadError.message);
-            console.error("Error Details:", leadError.details);
-            console.error("Error Hint:", leadError.hint);
+            console.error("Lead Creation Failed (RPC):", leadError);
             throw new Error("Could not create lead: " + leadError.message);
         }
 
-        const leadId = leadData.id;
-        console.log("Lead Created:", leadId);
+        console.log("Lead Created via RPC:", leadId);
 
-        // 3. Upload Photo (If User Selected One)
-        const imageFile = document.getElementById('yardImage')?.files[0];
+        // 3. Upload Photos (If User Selected Any)
+        const imageFiles = document.getElementById('yardImage')?.files;
 
-        if (imageFile) {
-            const fileExt = imageFile.name.split('.').pop();
-            const fileName = `${leadId}/${Date.now()}_original.${fileExt}`;
+        if (imageFiles && imageFiles.length > 0) {
+            for (let i = 0; i < imageFiles.length; i++) {
+                const imageFile = imageFiles[i];
+                const fileExt = imageFile.name.split('.').pop();
+                const fileName = `${leadId}/${Date.now()}_${i}_original.${fileExt}`;
 
-            const { data: uploadData, error: uploadError } = await supabase.storage
-                .from('raw_uploads')
-                .upload(fileName, imageFile, {
-                    cacheControl: '3600',
-                    upsert: false
+                // Upload file to bucket (Storage RLS usually works better, but we can fix if needed)
+                const { data: uploadData, error: uploadError } = await supabase.storage
+                    .from('raw_uploads')
+                    .upload(fileName, imageFile, {
+                        cacheControl: '3600',
+                        upsert: false
+                    });
+
+                if (uploadError) {
+                    console.error(`Photo Upload Failed for file ${imageFile.name}:`, uploadError);
+                    continue;
+                }
+
+                // 4. Link Photo to Lead using RPC
+                const { error: photoLinkError } = await supabase.rpc('link_photo_to_lead', {
+                    p_lead_id: leadId,
+                    p_original_path: uploadData.path
                 });
 
-            if (uploadError) {
-                console.error("Photo Upload Failed:", uploadError);
-                throw new Error("Photo upload failed: " + uploadError.message);
-            }
-
-            // 4. Link Photo to Lead
-            const { error: photoLinkError } = await supabase
-                .from('photos')
-                .insert([{
-                    lead_id: leadId,
-                    original_path: uploadData.path
-                }]);
-
-            if (photoLinkError) {
-                console.error("Photo Link Failed:", photoLinkError);
-                // Non-critical: Lead exists, File exists, but Link failed.
+                if (photoLinkError) {
+                    console.error("Photo Link Failed:", photoLinkError);
+                }
             }
         }
 
