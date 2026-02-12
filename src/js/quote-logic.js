@@ -99,18 +99,30 @@ async function handleFormSubmit(e) {
 
         console.log("Submitting Payload:", leadPayload); // Debugging aid
 
-        // 2. Insert into DB using RPC (Bypasses RLS)
-        // We use a Remote Procedure Call "submit_lead" which runs as Admin on the server.
-        // 2. Insert into DB using RPC v2 (Single JSON Wrapper)
-        // This avoids argument count errors by sending one JSON object called 'payload'
-        const { data: leadId, error: leadError } = await supabase.rpc('submit_lead_v2', {
-            payload: leadPayload
+        // 2. Insert into DB using Direct REST API (Bypasses Supabase Client Cache Issues)
+        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+        const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+        const rpcEndpoint = `${supabaseUrl}/rest/v1/rpc/submit_lead_v2`;
+
+        const response = await fetch(rpcEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': supabaseAnonKey,
+                'Authorization': `Bearer ${supabaseAnonKey}`
+            },
+            body: JSON.stringify({ payload: leadPayload })
         });
 
-        if (leadError) {
-            console.error("Lead Creation Failed (RPC):", leadError);
-            throw new Error("Could not create lead: " + leadError.message);
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`API Error: ${errorData.message || response.statusText}`);
         }
+
+        // The RPC returns just the UUID string, like "123e4567-e89b..."
+        // It might return it wrapped in quotes, so handle that if needed, 
+        // but typically .json() parses it.
+        const leadId = await response.json();
 
         console.log("Lead Created via RPC:", leadId);
 
