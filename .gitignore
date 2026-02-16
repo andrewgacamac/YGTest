@@ -33,3 +33,4 @@ dist/
 debug_*.mjs
 fix_supabase_*.sql
 FRONTEND_PROMPT.md
+NewArch/
