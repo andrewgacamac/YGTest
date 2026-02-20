@@ -334,3 +334,52 @@ Phase 3: LCP target is under 2.0 seconds. The hero before/after images are the L
 ### 68. Add `font-display: swap` to Google Fonts link **[COMPLETED]**
 Prevents invisible text during font loading. Current Google Fonts URL includes `display=swap` which is correct — verify this is present on all pages.
 **Verify:** Check all Google Fonts `<link>` tags. Each URL should contain `&display=swap`.
+
+
+---
+
+## Group 6: Advanced Segmentation & Multicultural Expansion (NewArch Blueprint)
+
+### 69. Add Aging & Accessibility Segment Landing Page (`/accessibility`)
+Phase 3 NewArch Blueprint (Page 7): "Landing page for aging-in-place homeowners and their adult children... This is about independence and dignity." Highlights even walking surfaces, eliminated physical lawn work, and in-home consultation accommodations.
+**Verify:** Load `accessibility.html`. Verify tone is respectful, text is highly accessible (minimum 18px body text), and content specifically addresses adult children looking for solutions for their parents.
+
+### 70. Add New Homeowners Segment Landing Page (`/new-home`)
+Phase 3 NewArch Blueprint (Page 8): "Landing page for owners of new-build homes with failed builder-grade sod. Extremely common in fast-growing GTA suburbs like Brampton, Milton, Whitby, and Vaughan."
+**Verify:** Load `new-home.html`. Page explicitly addresses the builder sod failure problem, includes a neighbourhood gallery, and removes blame/shame from the new homeowner.
+
+### 71. Add Commercial & Condo Segment Landing Page (`/commercial`)
+Phase 3 NewArch Blueprint (Page 9): "B2B landing page for property managers, condo boards, restaurant owners... Different buyer psychology: ROI-driven, committee decisions."
+**Verify:** Load `commercial.html`. Verify it includes a commercial ROI calculator, 'board-ready proposal' messaging, and case studies tailored to GTA condo corps and businesses.
+
+### 72. Add Compliance Vault Page (`/compliance`)
+Phase 3 NewArch Blueprint (Page 10B): "Dedicated regulatory transparency page... positions the company as the only verifiably compliant installer in the GTA." Needs a searchable MSDA database, lab certificates, and chain of custody map.
+**Verify:** Load `compliance.html`. Ensure there are downloadable PDFs for safety data sheets and lab certifications demonstrating PFAS-free/heavy-metal-free compliance.
+
+### 73. Add Problem-Specific Landing Pages (`/problems/[issue]`)
+Phase 3 NewArch Blueprint (Page 12B) / Phase 2 (temp_2.txt): "Parallel set of problem-specific landing pages. Users often search for their problem, not their solution." Need templates for /problems/muddy-backyard, /problems/dog-run-solutions, etc.
+**Verify:** Load at least one problem-specific landing page. Make sure the H1 matches the problem search intent, not just a generic turf solution.
+
+### 74. Add Maintenance & Care Hub (`/care`)
+Phase 3 NewArch Blueprint (Page 20): "Authority-building pillar page that reduces post-purchase anxiety... Includes a downloadable Care Guide." 
+**Verify:** Load `care.html`. Includes seasonal care guides (Spring, Summer, Fall, Winter), pet-specific maintenance, and a working email capture block for a "12-Month GTA Turf Care Calendar" PDF.
+
+### 75. Add Turf vs. Alternatives Comparison Page (`/compare`)
+Phase 3 NewArch Blueprint (Page 21): "High-converting comparison page targeting late-funnel visitors." Should feature a quick comparison matrix (Turf vs. Natural Grass vs. Pavers vs. Rock/Gravel) with GTA-specific data.
+**Verify:** Load `compare.html`. Look for the colour-coded comparison matrix and the specific "When Turf Isn't Right" section for building trust through transparency.
+
+### 76. Add Free Sample Request Page (`/samples`)
+Phase 3 NewArch Blueprint (Page 22): "Low-commitment lead capture page. Physical samples create the endowment effect." Needs a simplified form asking only for basic contact info and sample selections.
+**Verify:** Load `samples.html`. Verify the form is minimal, frictionless, and highlights fast 3-day GTA delivery.
+
+### 77. Add Referral Programme Page (`/refer`)
+Phase 3 NewArch Blueprint (Page 23): "Word-of-mouth engine... Mobile-first sharing with WhatsApp integration is critical for GTA's multicultural communities."
+**Verify:** Load `refer.html`. Check for WhatsApp and social sharing buttons, clear explanation of the asymmetric rewards system, and loyalty tiers.
+
+### 78. Add Landlord / Rental Property Page (`/landlords`)
+Phase 3 NewArch Blueprint (Page 25): "CapEx framing for property investors." Aimed at real estate investors wanting to reduce ongoing maintenance OPEX of rental portfolios.
+**Verify:** Load `landlords.html`. Content should focus strongly on CapEx vs OpEx, ROI over a 10-year term, and attracting premium tenants.
+
+### 79. Add Language-Specific Landing Pages for Key Markets
+Phase 2 NewArch Strategy (temp_2.txt): "Mandarin-language Markham page, Punjabi-language Brampton page... Go beyond literal translation — localise cultural references."
+**Verify:** Load language variants like `/zh/areas/markham.html` or `/pa/areas/brampton.html`. Ensure translated quote forms and localized copy for multicultural GTA communities.
