@@ -139,8 +139,8 @@ async function handleFormSubmit(e) {
         console.log("Submitting Payload:", leadPayload);
 
         // 2. Insert into DB using Direct REST API
-        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-        const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://rjwaunghmcihpmockiap.supabase.co';
+        const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_2wpXUJklTjkVJGAJnb5Wqg_6DG55FRO';
         const rpcEndpoint = `${supabaseUrl}/rest/v1/rpc/submit_lead_v2`;
 
         const response = await fetch(rpcEndpoint, {
