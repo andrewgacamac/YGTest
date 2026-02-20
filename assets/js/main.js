@@ -99,6 +99,14 @@ function initAccordions() {
 
             // Update aria-expanded
             header.setAttribute('aria-expanded', !currentlyActive);
+
+            // GA4 Tracking
+            if (!currentlyActive && typeof window.gtag === 'function') {
+                gtag('event', 'accordion_expand', {
+                    'event_category': 'Engagement',
+                    'event_label': header.innerText.trim()
+                });
+            }
         });
     });
 }
@@ -121,3 +129,31 @@ function initMobileMenu() {
         });
     }
 }
+
+// GA4 Event Tracking
+function initAnalytics() {
+    // Micro-conversions: Problem Carousel Cards
+    document.querySelectorAll('.problem-card').forEach(card => {
+        card.addEventListener('click', () => {
+            if (typeof window.gtag === 'function') {
+                gtag('event', 'click_problem_card', {
+                    'event_category': 'Engagement',
+                    'event_label': card.querySelector('.problem-card__title')?.innerText || 'Unknown Problem'
+                });
+            }
+        });
+    });
+
+    // Macro-conversions: Click to call
+    document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+        link.addEventListener('click', () => {
+            if (typeof window.gtag === 'function') {
+                gtag('event', 'click_to_call', {
+                    'event_category': 'Leads',
+                    'event_label': link.href
+                });
+            }
+        });
+    });
+}
+document.addEventListener('DOMContentLoaded', () => initAnalytics());

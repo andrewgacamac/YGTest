@@ -287,7 +287,7 @@ products.html uses extensive inline `style=""` attributes (the cost comparison s
 
 ## Voice Search & Featured Snippets
 
-### 60. Rewrite FAQ questions in conversational voice-search format
+### 60. Rewrite FAQ questions in conversational voice-search format **[COMPLETED]**
 Phase 2 Section 4.1: "Every FAQ answer should be structured as a direct, complete answer to a spoken question." Current FAQ questions are short labels. Rewrite to natural language (e.g., "How much does artificial turf cost in the GTA?" instead of "Is it worth the investment?").
 **Verify:** Read each FAQ question aloud. It should sound like a natural spoken question. Each answer should begin with a complete, self-contained sentence suitable for a featured snippet.
 
@@ -295,11 +295,11 @@ Phase 2 Section 4.1: "Every FAQ answer should be structured as a direct, complet
 
 ## Gallery Enhancements
 
-### 61. Add city filter to gallery page
+### 61. Add city filter to gallery page **[COMPLETED]**
 Phase 3 Page 5: "Filter buttons by city (Brampton, Mississauga, Vaughan, Markham, Oakville, Toronto, Other GTA) AND by project type AND by problem solved." The current gallery only filters by package type (Easy Lawn, Pet Yard, etc.).
 **Verify:** Load gallery.html. City filter buttons are visible. Clicking "Brampton" shows only Brampton projects.
 
-### 62. Add problem/solution framing to gallery project cards
+### 62. Add problem/solution framing to gallery project cards **[COMPLETED]**
 Phase 3 Page 5: "Each project card uses a Problem-Solution-Result format." Current cards show location, title, and package type but do not frame the problem that was solved.
 **Verify:** Each gallery card displays the problem that was solved (e.g., "Problem: 2 Labs destroying the backyard") alongside the solution and result.
 
@@ -307,11 +307,11 @@ Phase 3 Page 5: "Each project card uses a Problem-Solution-Result format." Curre
 
 ## Conversion Tracking Setup
 
-### 63. Add Google Analytics 4 event tracking for micro-conversions
+### 63. Add Google Analytics 4 event tracking for micro-conversions **[COMPLETED]**
 Phase 3 Conversion Tracking Framework defines micro-conversions: problem carousel card click, accordion expand, video play, chat widget open, calculator interaction, gallery filter click. Currently no analytics events are configured.
 **Verify:** Open browser DevTools Network tab. Clicking a problem card, expanding an accordion, or interacting with the slider should fire GA4 events.
 
-### 64. Add GA4 macro-conversion tracking for quote form submission and phone clicks
+### 64. Add GA4 macro-conversion tracking for quote form submission and phone clicks **[COMPLETED]**
 Phase 3: Macro-conversions include quote form submission, phone click-to-call, and sample request. These are the primary business KPIs.
 **Verify:** Submit the quote form. Check GA4 real-time events for a `generate_lead` or `form_submission` event. Click the phone number and verify a `click_to_call` event fires.
 

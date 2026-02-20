@@ -194,6 +194,15 @@ async function handleFormSubmit(e) {
             }
         }
 
+        // GA4 Macro-conversion: Lead Generation
+        if (typeof window.gtag === 'function') {
+            gtag('event', 'generate_lead', {
+                'event_category': 'Leads',
+                'event_label': 'Quote Form Submitted',
+                'value': 1
+            });
+        }
+
         // Success State
         form.style.display = 'none';
         document.querySelector('.form-progress').style.display = 'none';
