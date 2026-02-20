@@ -259,19 +259,19 @@ Phase 2 Section 4.6: "Use hreflang tags to signal language variants to Google." 
 
 ## Content Pages to Create
 
-### 55. Create partner-share page (/share or partner-comparison.html update)
+### 55. Create partner-share page (/share or partner-comparison.html update) **[COMPLETED]**
 Phase 3 Page 17: "The spouse-veto killer. Designed to be texted to a hesitant partner. Must be scannable in under 90 seconds on a phone." partner-comparison.html exists but needs to match Phase 3 specs: what it is (1 paragraph), what it costs (1 line), what it saves (bullet list), 3 photos, quick objection answers.
 **Verify:** Load the partner/share page. Time yourself reading it on a phone. It should be fully digestible in under 90 seconds. Contains: cost, savings, photos, and objection answers.
 
-### 56. Create a dedicated Pet Owners page (/pets)
+### 56. Create a dedicated Pet Owners page (/pets) **[COMPLETED]**
 Phase 3 Page 6: Dedicated landing page for the largest buyer segment. Currently no pet-specific landing page exists. The pet problem is only addressed in the problem carousel card and a package card.
 **Verify:** A pets.html page exists and is linked from the navigation or problem carousel. Contains: smell FAQ, pet-safe commitment, pet owner testimonials, and before/after pet yard photos.
 
-### 57. Create a Warranty page (/warranty)
+### 57. Create a Warranty page (/warranty) **[COMPLETED]**
 Phase 3 Page 19: Dedicated warranty page with coverage details, claims process (5-day inspection), freeze-thaw specific coverage, and warranty comparison table. Currently warranty is only mentioned as a line item on package cards.
 **Verify:** warranty.html exists, is linked from footer, and contains: what's covered, what's not, claims process, and freeze-thaw commitment.
 
-### 58. Create GTA Bylaw Guide page (/bylaws)
+### 58. Create GTA Bylaw Guide page (/bylaws) **[COMPLETED]**
 Phase 2 Gap Analysis: "No competitor addresses municipal bylaws." Phase 3 Page specifies URL `/bylaws`. Currently no bylaw content exists. This is a competitive differentiator.
 **Verify:** A bylaws.html page exists covering Toronto (front-yard restrictions), Vaughan (turf-friendly bylaws), and guidance for other GTA municipalities.
 
