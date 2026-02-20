@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Accessibility Statement | Yard Guard Landscaping</title>
+<meta content="Yard Guard Landscaping is committed to ensuring digital accessibility for people with disabilities. We are continually improving the user experience for everyone." name="description"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com?display=swap" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@0.263.1"></script>
+<style>
+        /* ========================================
+       CSS RESET & BASE
+       ======================================== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #212121;
+            background: #FFFFFF;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ========================================
+       VARIABLES
+       ======================================== */
+        :root {
+            --primary-green: #2E7D32;
+            --primary-green-hover: #1B5E20;
+            --dark-green: #1A3C1A;
+            --light-green: #E8F5E9;
+            --white: #FFFFFF;
+            --off-white: #FAFAFA;
+            --dark-text: #212121;
+            --medium-text: #757575;
+            --light-text: #9E9E9E;
+            --border: #E0E0E0;
+        }
+
+        /* ========================================
+       TYPOGRAPHY
+       ======================================== */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 48px;
+        }
+
+        h2 {
+            font-size: 32px;
+        }
+
+        h3 {
+            font-size: 24px;
+        }
+
+        p {
+            margin-bottom: 16px;
+        }
+
+        /* ========================================
+       LAYOUT
+       ======================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========================================
+       HEADER
+       ======================================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .header__container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .header__logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header__logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .header__nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--dark-text);
+            padding: 8px 16px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-green);
+        }
+
+        .header__cta {
+            margin-left: 16px;
+            padding: 12px 24px;
+            font-size: 14px;
+            min-height: auto;
+            background-color: var(--primary-green);
+            color: var(--white);
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        .header__cta:hover {
+            background-color: var(--primary-green-hover);
+        }
+
+
+        /* ========================================
+       CONTENT
+       ======================================== */
+        .content-page {
+            padding-top: 120px;
+            padding-bottom: 80px;
+            min-height: 80vh;
+        }
+
+        .content-page__header {
+            margin-bottom: 40px;
+        }
+
+        .content-page__title {
+            margin-bottom: 16px;
+        }
+
+        .content-page__body {
+            max-width: 800px;
+        }
+
+        .content-page__section {
+            margin-bottom: 40px;
+        }
+
+        .contact-list {
+            list-style: none;
+        }
+
+        .contact-list li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ========================================
+       FOOTER
+       ======================================== */
+        .footer {
+            background-color: #1A3C1A;
+            color: var(--white);
+            padding: 64px 24px 32px;
+        }
+
+        .footer__main {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 48px;
+        }
+
+        .footer__logo img {
+            height: 40px;
+            margin-bottom: 16px;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer__tagline {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .footer__social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer__social-link {
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .footer__social-link:hover {
+            color: var(--white);
+        }
+
+        .footer__column-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .footer__link {
+            display: block;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 8px 0;
+            transition: color 0.3s ease;
+        }
+
+        .footer__link:hover {
+            color: var(--white);
+        }
+
+        .footer__bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 48px;
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer__copyright {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer__legal {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer__legal-link {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer__legal-link:hover {
+            color: var(--white);
+        }
+
+        /* ============================================
+       MOBILE & RESPONSIVE
+       ============================================ */
+        @media (max-width: 1023px) {
+            .header__nav {
+                display: none;
+            }
+
+            .wrapper {
+                flex-direction: column;
+            }
+
+            .footer__main {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 767px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            .footer__main {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer__bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #000;
+            color: white;
+            padding: 8px;
+            z-index: 10001;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "Yard Guard Landscaping",
+      "url": "https://www.yardguardlandscaping.com",
+      "logo": "https://static.wixstatic.com/media/e83a48_77d3e37bf7c04f32af25998246892eb8~mv2.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-647-216-7787",
+        "contactType": "customer service"
+      },
+      "sameAs": [
+        "https://www.facebook.com/YardGuardlandscaping/",
+        "https://www.instagram.com/yardguardlandscaping/"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "name": "Accessibility Statement",
+      "description": "Yard Guard Landscaping is committed to ensuring digital accessibility for people with disabilities.",
+      "url": "https://www.yardguardlandscaping.com/accessibility-statement.html"
+    },
+    {
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.yardguardlandscaping.com/index.html"
+        },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Accessibility Statement",
+            "item": "https://www.yardguardlandscaping.com/accessibility-statement.html"
+        }]
+    }
+  ]
+}
+</script>
+<meta content="index, follow" name="robots"/><link href="https://www.yardguardlandscaping.com/accessibility-statement.html" rel="canonical"/><link href="https://www.yardguardlandscaping.com/accessibility-statement.html" hreflang="en-CA" rel="alternate"/><meta content="Accessibility Statement | Yard Guard Landscaping" property="og:title"/><meta content="Yard Guard Landscaping is committed to ensuring digital accessibility for people with disabilities. We are continually improving the user experience for everyone." property="og:description"/><meta content="https://www.yardguardlandscaping.com/images/hero-after.jpg" property="og:image"/><meta content="https://www.yardguardlandscaping.com/accessibility-statement.html" property="og:url"/></head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<!-- Header -->
+<header class="header" role="banner">
+<div class="header__container">
+<a class="header__logo" href="index.html">
+<img alt="Yard Guard Landscaping" src="images/logo.webp"/>
+</a>
+<button aria-expanded="false" aria-label="Toggle Menu" class="mobile-menu-toggle" style="display: none; background: none; border: none; cursor: pointer;"><i data-lucide="menu"></i></button><nav aria-label="Main navigation" class="header__nav" role="navigation">
+<a class="btn-primary header__cta" href="quote.html">Get a Quote</a>
+<a class="nav-link" href="index.html">Home</a><a class="nav-link" href="how-it-works.html">How It Works</a><a class="nav-link" href="products.html">Pricing &amp; Products</a><a class="nav-link" href="gallery.html">Gallery</a><a class="nav-link" href="faq.html">FAQ</a></nav>
+<!-- Mobile CTA only (nav hidden) -->
+<a class="btn-primary header__cta" href="quote.html" style="display: none;">Get a Quote</a>
+</div>
+</header>
+<main class="content-page" id="main-content">
+<div class="container">
+<div class="content-page__header">
+<h1 class="content-page__title">Accessibility Statement</h1>
+<p><strong>Updated:</strong> February 2026</p>
+</div>
+<div class="content-page__body">
+<section class="content-page__section">
+<h2>General</h2>
+<p>Yard Guard Landscaping is committed to facilitating the accessibility and usability of its
+                        website, yardguardlandscaping.com, for all people with disabilities. We strive to ensure that
+                        our website services and content are accessible to persons with disabilities including users of
+                        screen reader technology.</p>
+</section>
+<section class="content-page__section">
+<h2>Accessibility Standards</h2>
+<p>We have implemented the relevant portions of the World Wide Web Consortium's Web Content
+                        Accessibility Guidelines 2.1 Level AA (WCAG 2.1 AA) as our web accessibility standard. Our
+                        website is tested on a periodic basis with assistive technology.</p>
+<p><strong>Our efforts include:</strong></p>
+<ul>
+<li>Ensuring sufficient colour contrast for text readability.</li>
+<li>Providing text alternatives (alt text) for non-text content.</li>
+<li>Ensuring keyboard navigation for all interactive elements.</li>
+<li>Using semantic HTML to provide meaningful structure.</li>
+</ul>
+</section>
+<section class="content-page__section">
+<h2>Contact Us</h2>
+<p>Please be aware that our efforts to maintain accessibility and usability are ongoing. While we
+                        strive to make the website as accessible as possible some issues can be encountered by different
+                        assistive technology as the range of assistive technology is wide and varied.</p>
+<p>If, at any time, you have specific questions or concerns about the accessibility of any
+                        particular web page on this website, please contact us:</p>
+<ul class="contact-list">
+<li>
+<i data-lucide="mail"></i>
+<a href="mailto:info@yardguardlandscaping.com">info@yardguardlandscaping.com</a>
+</li>
+<li>
+<i data-lucide="phone"></i>
+<a href="tel:+16472167787">(647) 216-7787</a>
+</li>
+</ul>
+<p>If you encounter an accessibility issue, please be sure to specify the web page and nature of the
+                        issue in your email and/or phone call, and we will make all reasonable efforts to make that page
+                        or the information contained therein accessible for you.</p>
+</section>
+</div>
+</div>
+</main>
+<footer class="footer" role="contentinfo">
+<div class="footer__main">
+<div class="footer__brand">
+<div class="footer__logo">
+<img alt="Yard Guard Landscaping" src="images/logo.webp"/>
+</div>
+<p class="footer__tagline">Transform your backyard into a low-maintenance outdoor oasis.</p>
+<div class="footer__social">
+<a aria-label="Facebook" class="footer__social-link" href="https://www.facebook.com/YardGuardlandscaping/" rel="noopener noreferrer" target="_blank">
+<i data-lucide="facebook" style="width: 20px; height: 20px;"></i>
+</a>
+<a aria-label="Instagram" class="footer__social-link" href="https://www.instagram.com/yardguardlandscaping/" rel="noopener noreferrer" target="_blank">
+<i data-lucide="instagram" style="width: 20px; height: 20px;"></i>
+</a>
+<a aria-label="Website" class="footer__social-link" href="https://www.yardguardlandscaping.com" rel="noopener noreferrer" target="_blank">
+<i data-lucide="globe" style="width: 20px; height: 20px;"></i>
+</a>
+</div>
+</div>
+<div class="footer__column">
+<h4 class="footer__column-title">Services</h4>
+<a class="footer__link" href="products.html">Easy Lawn</a>
+<a class="footer__link" href="products.html">Pet Yard</a>
+<a class="footer__link" href="products.html">Golfer's Green</a>
+<a class="footer__link" href="quote.html">Get a Quote</a>
+</div>
+<div class="footer__column">
+<h4 class="footer__column-title">Company</h4>
+<a class="footer__link" href="about.html">About Us</a>
+<a class="footer__link" href="gallery.html">Gallery</a>
+<a class="footer__link" href="how-it-works.html">How It Works</a>
+<a class="footer__link" href="partner-program.html">Partner Program</a>
+<a class="footer__link" href="faq.html">FAQ</a>
+</div>
+<div class="footer__column">
+<h4 class="footer__column-title">Locations</h4>
+<a class="footer__link" href="artificial-turf-mississauga.html">Mississauga</a>
+<span class="footer__link">Etobicoke (Coming Soon)</span>
+<span class="footer__link">Oakville (Coming Soon)</span>
+</div>
+<div class="footer__column">
+<h4 class="footer__column-title">Contact</h4>
+<div class="footer__contact-item">
+<i data-lucide="phone" style="width: 16px; height: 16px;"></i><a href="tel:+16472167787" style="text-decoration: none; color: inherit;">(647) 216-7787</a></div>
+<div class="footer__contact-item">
+<i data-lucide="mail" style="width: 16px; height: 16px;"></i><a href="mailto:info@yardguardlandscaping.com" style="text-decoration: none; color: inherit;">info@yardguardlandscaping.com</a></div>
+<div class="footer__contact-item">
+<i data-lucide="map-pin" style="width: 16px; height: 16px;"></i>
+                    Mississauga, ON<br/>Serving Etobicoke &amp; GTA
+                </div>
+</div>
+</div>
+<div class="footer__bottom">
+<p class="footer__copyright">&copy; 2026 Yard Guard Landscaping. All rights reserved.</p>
+<div class="footer__legal">
+<a class="footer__legal-link" href="privacy.html">Privacy Policy</a>
+<a class="footer__legal-link" href="terms.html">Terms of Service</a>
+<a class="footer__legal-link" href="accessibility-statement.html">Accessibility Statement</a>
+</div>
+</div>
+</footer>
+<script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

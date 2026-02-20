@@ -76,5 +76,16 @@ drop policy if exists "Public_Insert_Leads_2024" on leads;
 drop policy if exists "photos_anon_insert" on photos;
 drop policy if exists "Public_Insert_Photos_2024" on photos;
 
+-- FIX 3: Secure Storage (Optional but Recommended)
+-- The audit showed that public users can LIST files in 'raw_uploads'.
+-- This implies a permissive RLS policy exists on storage.objects.
+-- Uncomment the following lines to drop common default policies if you find them:
+-- drop policy if exists "Give me access" on storage.objects;
+-- drop policy if exists "Public Access" on storage.objects;
+
+-- Create a restrictive policy for raw_uploads if needed (files are only linked via RPC)
+-- (Note: Storage policies are complex, ensure you don't break admin/service access)
+
+
 -- Reload Config to Apply
 NOTIFY pgrst, 'reload config';

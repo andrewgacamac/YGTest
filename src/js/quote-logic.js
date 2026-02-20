@@ -1,18 +1,29 @@
 
-import { supabase } from '../lib/supabase.js';
+// UI Logic for Multi-step Form
+// We use dynamic imports to ensure UI works even if backend modules fail initially.
 
-// Expose navigation functions to window so inline onclick works
-window.nextStep = function (step) {
+// Expose navigation functions globally immediately
+window.nextStep = function (targetStep) {
+    console.log("Navigating to step", targetStep); // Debug log
+
+    // Hide all steps
     document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
-    document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+
+    // Show target step
+    const targetStepEl = document.querySelector(`.form-step[data-step="${targetStep}"]`);
+    if (targetStepEl) {
+        targetStepEl.classList.add('active');
+    } else {
+        console.error("Target step not found:", targetStep);
+    }
 
     // Update progress bar
     document.querySelectorAll('.form-progress__step').forEach(p => {
         const pStep = parseInt(p.dataset.step);
-        if (pStep < step) {
+        if (pStep < targetStep) {
             p.classList.add('completed');
             p.classList.remove('active');
-        } else if (pStep === step) {
+        } else if (pStep === targetStep) {
             p.classList.add('active');
             p.classList.remove('completed');
         } else {
@@ -23,15 +34,34 @@ window.nextStep = function (step) {
     // Re-initialize icons
     if (window.lucide) window.lucide.createIcons();
 
-    // Scroll to top of form
+    // Scroll to top
     const formContainer = document.querySelector('.quote-form-container');
-    if (formContainer) {
-        formContainer.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (formContainer) formContainer.scrollIntoView({ behavior: 'smooth' });
 }
 
 window.prevStep = function (step) {
     window.nextStep(step);
+}
+
+function validateStep(stepEl) {
+    const inputs = stepEl.querySelectorAll('input, select, textarea');
+    let isValid = true;
+
+    inputs.forEach(input => {
+        if (!input.checkValidity()) {
+            isValid = false;
+            input.classList.add('error');
+            // Ensure error message is visible
+            const errorMsg = input.parentNode.querySelector('.form-error');
+            if (errorMsg) errorMsg.style.display = 'block';
+        } else {
+            input.classList.remove('error');
+            const errorMsg = input.parentNode.querySelector('.form-error');
+            if (errorMsg) errorMsg.style.display = 'none';
+        }
+    });
+
+    return isValid;
 }
 
 // Initialize on load
@@ -52,6 +82,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form) {
         form.addEventListener('submit', handleFormSubmit);
     }
+
+    // input listener to remove error class on type
+    document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(input => {
+        input.addEventListener('input', () => {
+            input.classList.remove('error');
+            const errorMsg = input.parentNode.querySelector('.form-error');
+            if (errorMsg) errorMsg.style.display = 'none';
+        });
+    });
 });
 
 async function handleFormSubmit(e) {
@@ -64,14 +103,14 @@ async function handleFormSubmit(e) {
         btn.innerHTML = 'Sending...';
         btn.disabled = true;
 
+        // Dynamic import of Supabase
+        const { supabase } = await import('../lib/supabase.js');
+
         const formData = new FormData(form);
 
         // --- Supabase Integration ---
 
         // 1. Prepare Data Object
-
-        // helper to get all checkbox values properly
-        // 'project_type' is a multi-select checkbox group
         const projectTypes = formData.getAll('project_type');
 
         const leadPayload = {
@@ -82,24 +121,24 @@ async function handleFormSubmit(e) {
             phone: formData.get('phone') || null,
 
             // -- Location Info --
-            address: formData.get('address'), // Street Address
+            address: formData.get('address'),
             city: formData.get('city'),
             postal_code: formData.get('postalCode'),
 
             // -- Project Details --
-            package_interest: formData.get('package'), // Radio button (single value)
-            project_type: projectTypes,                // Array of strings (e.g. ["backyard", "patio"])
-            approximate_size: formData.get('size'),    // Select dropdown
-            timeline: formData.get('timeline'),        // Select dropdown
+            package_interest: formData.get('package'),
+            project_type: projectTypes,
+            approximate_size: formData.get('size'),
+            timeline: formData.get('timeline'),
 
             // -- Marketing & Context --
             referral_source: formData.get('howHeard'),
-            message_content: formData.get('message'),  // Textarea
+            message_content: formData.get('message'),
         };
 
-        console.log("Submitting Payload:", leadPayload); // Debugging aid
+        console.log("Submitting Payload:", leadPayload);
 
-        // 2. Insert into DB using Direct REST API (Bypasses Supabase Client Cache Issues)
+        // 2. Insert into DB using Direct REST API
         const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
         const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
         const rpcEndpoint = `${supabaseUrl}/rest/v1/rpc/submit_lead_v2`;
@@ -119,14 +158,10 @@ async function handleFormSubmit(e) {
             throw new Error(`API Error: ${errorData.message || response.statusText}`);
         }
 
-        // The RPC returns just the UUID string, like "123e4567-e89b..."
-        // It might return it wrapped in quotes, so handle that if needed, 
-        // but typically .json() parses it.
         const leadId = await response.json();
-
         console.log("Lead Created via RPC:", leadId);
 
-        // 3. Upload Photos (If User Selected Any)
+        // 3. Upload Photos
         const imageFiles = document.getElementById('yardImage')?.files;
 
         if (imageFiles && imageFiles.length > 0) {
@@ -135,7 +170,6 @@ async function handleFormSubmit(e) {
                 const fileExt = imageFile.name.split('.').pop();
                 const fileName = `${leadId}/${Date.now()}_${i}_original.${fileExt}`;
 
-                // Upload file to bucket (Storage RLS usually works better, but we can fix if needed)
                 const { data: uploadData, error: uploadError } = await supabase.storage
                     .from('raw_uploads')
                     .upload(fileName, imageFile, {
