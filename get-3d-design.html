@@ -1218,8 +1218,7 @@
 </footer>
 <!-- Initialize Lucide Icons -->
 <script>
-    lucide.createIcons();
-
+      if (window.lucide) { lucide.createIcons(); }
     // Form step navigation
     function nextStep(step) {
       document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
@@ -1240,7 +1239,7 @@
       });
 
       // Re-initialize icons
-      lucide.createIcons();
+      if (window.lucide) { lucide.createIcons(); }
     }
 
     function prevStep(step) {
@@ -1257,7 +1256,7 @@
       document.getElementById('formSuccess').classList.add('active');
 
       // Re-initialize icons
-      lucide.createIcons();
+      if (window.lucide) { lucide.createIcons(); }
     });
 
     // Check for package parameter in URL

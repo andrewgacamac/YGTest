@@ -1563,8 +1563,7 @@
 
   <!-- Initialize Lucide Icons -->
   <script>
-    lucide.createIcons();
-
+      if (window.lucide) { lucide.createIcons(); }
     // Interactive Gallery Cards Slider
     function initGallerySliders() {
       const cards = document.querySelectorAll('.gallery-card');

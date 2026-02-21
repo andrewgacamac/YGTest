@@ -1621,8 +1621,7 @@
 
   <!-- Initialize Lucide Icons -->
   <script>
-    lucide.createIcons();
-
+      if (window.lucide) { lucide.createIcons(); }
     // Accordion functionality
     document.querySelectorAll('.faq-accordion__header').forEach(button => {
       button.addEventListener('click', () => {

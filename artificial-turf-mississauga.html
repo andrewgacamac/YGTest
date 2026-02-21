@@ -2113,8 +2113,7 @@
 </div>
 <!-- Initialize Lucide Icons -->
 <script>
-    lucide.createIcons();
-
+      if (window.lucide) { lucide.createIcons(); }
     // Interactive Before/After Slider
     function initSlider() {
       const slider = document.getElementById('heroSlider');
