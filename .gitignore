@@ -25,6 +25,7 @@ tmp/
 .agent/
 .env
 .env.local
+security/
 
 # Build
 dist/
