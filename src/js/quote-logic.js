@@ -110,37 +110,75 @@ async function handleFormSubmit(e) {
 
         // --- Supabase Integration ---
 
-        // 1. Prepare Data Object
+                const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://rjwaunghmcihpmockiap.supabase.co';
+        const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_2wpXUJklTjkVJGAJnb5Wqg_6DG55FRO';
+        
+        let userMessage = formData.get('message') || '';
+
+        // 1. Upload Photos FIRST to get URLs
+        const imageFiles = document.getElementById('yardImage')?.files;
+        let uploadedPaths = [];
+
+        // Generate a unique folder ID since we don't have lead_id yet
+        const folderId = window.crypto.randomUUID ? window.crypto.randomUUID() : Date.now().toString();
+
+        if (imageFiles && imageFiles.length > 0) {
+            for (let i = 0; i < imageFiles.length; i++) {
+                const imageFile = imageFiles[i];
+                const fileExt = imageFile.name.split('.').pop();
+                const fileName = `${folderId}/${Date.now()}_${i}_original.${fileExt}`;
+                const storageUrl = `${supabaseUrl}/storage/v1/object/raw_uploads/${fileName}`;
+                
+                try {
+                    const uploadResponse = await fetch(storageUrl, {
+                        method: 'POST',
+                        headers: {
+                            'apikey': supabaseAnonKey,
+                            'Authorization': `Bearer ${supabaseAnonKey}`,
+                            'Content-Type': imageFile.type || 'application/octet-stream',
+                            'x-upsert': 'false'
+                        },
+                        body: imageFile
+                    });
+
+                    if (uploadResponse.ok) {
+                        uploadedPaths.push(fileName);
+                    } else {
+                        console.error('Photo Upload Failed:', await uploadResponse.text());
+                    }
+                } catch (err) {
+                    console.error("Upload error:", err);
+                }
+            }
+        }
+
+        // --- BYPASS BROKEN BACKEND RPC BY INJECTING URLS INTO MESSAGE ---
+        if (uploadedPaths.length > 0) {
+            userMessage += "\n\n--- Attached Photos ---\n" + uploadedPaths.join('\n');
+        }
+
+        // 2. Prepare Data Object for the Lead
         const projectTypes = formData.getAll('project_type');
 
         const leadPayload = {
-            // -- Contact Info --
             first_name: formData.get('firstName'),
             last_name: formData.get('lastName'),
             email: formData.get('email'),
             phone: formData.get('phone') || null,
-
-            // -- Location Info --
             address: formData.get('address'),
             city: formData.get('city'),
             postal_code: formData.get('postalCode'),
-
-            // -- Project Details --
             package_interest: formData.get('package'),
             project_type: projectTypes,
             approximate_size: formData.get('size'),
             timeline: formData.get('timeline'),
-
-            // -- Marketing & Context --
             referral_source: formData.get('howHeard'),
-            message_content: formData.get('message'),
+            message_content: userMessage,
         };
 
         console.log("Submitting Payload:", leadPayload);
 
-        // 2. Insert into DB using Direct REST API
-        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://rjwaunghmcihpmockiap.supabase.co';
-        const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_2wpXUJklTjkVJGAJnb5Wqg_6DG55FRO';
+        // 3. Insert Lead Data using Direct REST API
         const rpcEndpoint = `${supabaseUrl}/rest/v1/rpc/submit_lead_v2`;
 
         const response = await fetch(rpcEndpoint, {
@@ -160,65 +198,6 @@ async function handleFormSubmit(e) {
 
         const leadId = await response.json();
         console.log("Lead Created via RPC:", leadId);
-
-        // 3. Upload Photos
-        const imageFiles = document.getElementById('yardImage')?.files;
-
-        if (imageFiles && imageFiles.length > 0) {
-            for (let i = 0; i < imageFiles.length; i++) {
-                const imageFile = imageFiles[i];
-                const fileExt = imageFile.name.split('.').pop();
-                const fileName = `${leadId}/${Date.now()}_${i}_original.${fileExt}`;
-
-                // --- Upload using Direct REST API ---
-                const storageUrl = `${supabaseUrl}/storage/v1/object/raw_uploads/${fileName}`;
-                
-                try {
-                    const uploadResponse = await fetch(storageUrl, {
-                        method: 'POST',
-                        headers: {
-                            'apikey': supabaseAnonKey,
-                            'Authorization': `Bearer ${supabaseAnonKey}`,
-                            'Content-Type': imageFile.type || 'application/octet-stream',
-                            'x-upsert': 'false'
-                        },
-                        body: imageFile
-                    });
-
-                    if (!uploadResponse.ok) {
-                        const errorText = await uploadResponse.text();
-                        console.error(`Photo Upload Failed for file ${imageFile.name}:`, errorText);
-                        continue;
-                    }
-
-                    const uploadedPath = fileName;
-
-                    // 4. Link Photo to Lead using Direct REST API
-                    const linkRpcEndpoint = `${supabaseUrl}/rest/v1/rpc/link_photo_to_lead`;
-                    const linkResponse = await fetch(linkRpcEndpoint, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'apikey': supabaseAnonKey,
-                            'Authorization': `Bearer ${supabaseAnonKey}`
-                        },
-                        body: JSON.stringify({
-                            p_lead_id: leadId,
-                            p_original_path: uploadedPath
-                        })
-                    });
-
-                    if (!linkResponse.ok) {
-                        console.error("Photo Link Failed:", await linkResponse.text());
-                    } else {
-                        console.log(`Photo linked successfully: ${fileName}`);
-                    }
-
-                } catch (uploadErr) {
-                    console.error("Error uploading file:", uploadErr);
-                }
-            }
-        }
 
         // GA4 Macro-conversion: Lead Generation
         if (typeof window.gtag === 'function') {
