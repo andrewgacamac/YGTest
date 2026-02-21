@@ -313,6 +313,7 @@ h4 {
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     align-items: flex-start;
+    z-index: 1001; /* Ensure dropdown is above content */
   }
   
   .header__nav.active {
@@ -335,6 +336,10 @@ h4 {
 
   .mobile-menu-toggle {
     display: block !important;
+    position: relative;
+    z-index: 1002;
+    padding: 10px;
+    margin-right: -10px;
   }
 }
 
