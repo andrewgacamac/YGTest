@@ -237,7 +237,7 @@ h4 {
 }
 
 .mobile-menu-toggle {
-  display: none;
+  display: none !important; /* hidden on desktop */
   background: transparent;
   border: none;
   cursor: pointer;
