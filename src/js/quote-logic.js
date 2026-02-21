@@ -170,26 +170,52 @@ async function handleFormSubmit(e) {
                 const fileExt = imageFile.name.split('.').pop();
                 const fileName = `${leadId}/${Date.now()}_${i}_original.${fileExt}`;
 
-                const { data: uploadData, error: uploadError } = await supabase.storage
-                    .from('raw_uploads')
-                    .upload(fileName, imageFile, {
-                        cacheControl: '3600',
-                        upsert: false
+                // --- Upload using Direct REST API ---
+                const storageUrl = `${supabaseUrl}/storage/v1/object/raw_uploads/${fileName}`;
+                
+                try {
+                    const uploadResponse = await fetch(storageUrl, {
+                        method: 'POST',
+                        headers: {
+                            'apikey': supabaseAnonKey,
+                            'Authorization': `Bearer ${supabaseAnonKey}`,
+                            'Content-Type': imageFile.type || 'application/octet-stream',
+                            'x-upsert': 'false'
+                        },
+                        body: imageFile
                     });
 
-                if (uploadError) {
-                    console.error(`Photo Upload Failed for file ${imageFile.name}:`, uploadError);
-                    continue;
-                }
+                    if (!uploadResponse.ok) {
+                        const errorText = await uploadResponse.text();
+                        console.error(`Photo Upload Failed for file ${imageFile.name}:`, errorText);
+                        continue;
+                    }
 
-                // 4. Link Photo to Lead using RPC
-                const { error: photoLinkError } = await supabase.rpc('link_photo_to_lead', {
-                    p_lead_id: leadId,
-                    p_original_path: uploadData.path
-                });
+                    const uploadedPath = fileName;
 
-                if (photoLinkError) {
-                    console.error("Photo Link Failed:", photoLinkError);
+                    // 4. Link Photo to Lead using Direct REST API
+                    const linkRpcEndpoint = `${supabaseUrl}/rest/v1/rpc/link_photo_to_lead`;
+                    const linkResponse = await fetch(linkRpcEndpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'apikey': supabaseAnonKey,
+                            'Authorization': `Bearer ${supabaseAnonKey}`
+                        },
+                        body: JSON.stringify({
+                            p_lead_id: leadId,
+                            p_original_path: uploadedPath
+                        })
+                    });
+
+                    if (!linkResponse.ok) {
+                        console.error("Photo Link Failed:", await linkResponse.text());
+                    } else {
+                        console.log(`Photo linked successfully: ${fileName}`);
+                    }
+
+                } catch (uploadErr) {
+                    console.error("Error uploading file:", uploadErr);
                 }
             }
         }
