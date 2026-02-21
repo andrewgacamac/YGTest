@@ -1,8 +1,8 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://rjwaunghmcihpmockiap.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_2wpXUJklTjkVJGAJnb5Wqg_6DG55FRO';
 
 console.log("Supabase Configuration Check:");
 console.log("URL:", supabaseUrl ? supabaseUrl.substring(0, 15) + "..." : "MISSING");
