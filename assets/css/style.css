@@ -227,10 +227,7 @@ h4 {
    HEADER
    ============================================ */
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  position: relative;
   height: var(--header-height);
   background: var(--white);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -374,7 +371,7 @@ h4 {
 .hero {
   position: relative;
   min-height: 90vh;
-  padding-top: var(--header-height);
+  /* padding-top: var(--header-height); removed for relative header */
   display: flex;
   align-items: center;
   justify-content: center;
