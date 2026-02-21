@@ -1,5 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    lucide.createIcons();
+    try {
+        if (window.lucide) {
+            lucide.createIcons();
+        } else {
+            console.warn("Lucide icons not loaded.");
+        }
+    } catch (e) {
+        console.error("Icon rendering error:", e);
+    }
+
     initSlider();
     initAccordions();
     initMobileMenu();
@@ -113,21 +122,27 @@ function initAccordions() {
 
 // Mobile Menu Toggle
 function initMobileMenu() {
-    const toggleBtn = document.querySelector('.mobile-menu-toggle');
-    const headerNav = document.querySelector('.header__nav');
-
-    if (toggleBtn && headerNav) {
-        toggleBtn.addEventListener('click', () => {
-            const isActive = headerNav.classList.contains('active');
-            if (isActive) {
-                headerNav.classList.remove('active');
-                toggleBtn.setAttribute('aria-expanded', 'false');
+    console.log("initMobileMenu called");
+    document.addEventListener('click', (e) => {
+        const toggleBtn = e.target.closest('.mobile-menu-toggle');
+        if (toggleBtn) {
+            console.log("mobile toggle clicked!");
+            e.preventDefault();
+            const headerNav = document.querySelector('.header__nav');
+            if (headerNav) {
+                const isActive = headerNav.classList.contains('active');
+                if (isActive) {
+                    headerNav.classList.remove('active');
+                    toggleBtn.setAttribute('aria-expanded', 'false');
+                } else {
+                    headerNav.classList.add('active');
+                    toggleBtn.setAttribute('aria-expanded', 'true');
+                }
             } else {
-                headerNav.classList.add('active');
-                toggleBtn.setAttribute('aria-expanded', 'true');
+                console.error("No header__nav found");
             }
-        });
-    }
+        }
+    });
 }
 
 // GA4 Event Tracking

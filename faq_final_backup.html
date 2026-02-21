@@ -250,6 +250,31 @@
       .header__nav {
         display: none;
       }
+
+      .header__nav.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        align-items: flex-start;
+        z-index: 1001;
+      }
+      
+      .nav-link {
+        width: 100%;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--border);
+      }
+      
+      .nav-link:last-child {
+        border-bottom: none;
+      }
+
     }
 
     /* ========================================
@@ -1663,8 +1688,7 @@
 
   <!-- Initialize Lucide Icons -->
   <script>
-    lucide.createIcons();
-
+      if (window.lucide) { lucide.createIcons(); }
     // Accordion functionality
     document.querySelectorAll('.faq-accordion__header').forEach(button => {
       button.addEventListener('click', () => {
@@ -1691,6 +1715,7 @@
       });
     });
   </script>
+<script src="assets/js/main.js"></script>
 </body>
 
 </html>

@@ -304,6 +304,31 @@
         display: none;
       }
 
+      .header__nav.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        align-items: flex-start;
+        z-index: 1001;
+      }
+      
+      .nav-link {
+        width: 100%;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--border);
+      }
+      
+      .nav-link:last-child {
+        border-bottom: none;
+      }
+
+
       .header__cta {
         display: none;
       }
@@ -1588,7 +1613,13 @@
 <a class="header__logo" href="index.html">
 <img alt="Yard Guard Landscaping" src="images/logo.webp"/>
 </a>
-<button aria-expanded="false" aria-label="Toggle Menu" class="mobile-menu-toggle" ><i data-lucide="menu"></i></button><nav aria-label="Main navigation" class="header__nav" role="navigation">
+<button aria-expanded="false" aria-label="Toggle Menu" class="mobile-menu-toggle">
+    <svg width="28" height="28" fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="4" x2="20" y1="12" y2="12"></line>
+        <line x1="4" x2="20" y1="6" y2="6"></line>
+        <line x1="4" x2="20" y1="18" y2="18"></line>
+    </svg>
+</button><nav aria-label="Main navigation" class="header__nav" role="navigation">
 <a class="nav-link active" href="index.html">Home</a><a class="nav-link" href="how-it-works.html">How It Works</a><a class="nav-link" href="gallery.html">Gallery</a><a class="nav-link" href="faq.html">FAQ</a><a class="nav-link" href="packages.html">Packages</a></nav>
 <a class="btn-primary header__cta" href="quote.html">Get a Quote</a>
 </div>
@@ -2082,8 +2113,7 @@
 </div>
 <!-- Initialize Lucide Icons -->
 <script>
-    lucide.createIcons();
-
+      if (window.lucide) { lucide.createIcons(); }
     // Interactive Before/After Slider
     function initSlider() {
       const slider = document.getElementById('heroSlider');
@@ -2152,5 +2182,6 @@
       initSlider();
     }
   </script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
