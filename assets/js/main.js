@@ -1,5 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    lucide.createIcons();
+    try {
+        if (window.lucide) {
+            lucide.createIcons();
+        } else {
+            console.warn("Lucide icons not loaded.");
+        }
+    } catch (e) {
+        console.error("Icon rendering error:", e);
+    }
+
     initSlider();
     initAccordions();
     initMobileMenu();
