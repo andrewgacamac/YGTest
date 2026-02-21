@@ -239,6 +239,14 @@ h4 {
   align-items: center;
 }
 
+.mobile-menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+}
+
 .header__container {
   display: flex;
   align-items: center;
@@ -340,13 +348,23 @@ h4 {
     align-items: center;
     justify-content: center;
     position: relative;
-    z-index: 1002;
+    z-index: 1005;
     padding: 12px;
     margin-left: auto;
     /* Push it to the far right */
     background: transparent;
     border: none;
     cursor: pointer;
+    min-width: 48px;
+    min-height: 48px;
+  }
+
+  .mobile-menu-toggle svg {
+    width: 32px;
+    height: 32px;
+    stroke: #212121;
+    color: #212121;
+    display: block !important;
   }
 }
 

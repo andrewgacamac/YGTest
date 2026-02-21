@@ -256,13 +256,22 @@
         align-items: center;
         justify-content: center;
         position: relative;
-        z-index: 1002;
+        z-index: 1005;
         padding: 12px;
         margin-left: auto;
-        /* Push it to the far right */
         background: transparent;
         border: none;
         cursor: pointer;
+        min-width: 48px;
+        min-height: 48px;
+      }
+
+      .mobile-menu-toggle svg {
+        width: 32px;
+        height: 32px;
+        stroke: #212121;
+        color: #212121;
+        display: block !important;
       }
     }
 
@@ -1030,8 +1039,8 @@
   <header class="header" role="banner">
     <div class="header__container">
       <a class="header__logo" href="index.html"><img alt="Yard Guard Landscaping" src="images/logo.webp" /></a>
-      <button aria-expanded="false" aria-label="Toggle Menu" class="mobile-menu-toggle"
-        style="display: none; background: none; border: none; cursor: pointer;"><i data-lucide="menu"></i></button>
+      <button aria-expanded="false" aria-label="Toggle Menu" class="mobile-menu-toggle"><i
+          data-lucide="menu"></i></button>
       <nav aria-label="Main navigation" class="header__nav" role="navigation">
         <a class="nav-link" href="index.html">Home</a><a class="nav-link" href="how-it-works.html">How It Works</a><a
           class="nav-link" href="products.html">Pricing &amp; Products</a><a class="nav-link"
