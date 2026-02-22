@@ -1,7 +1,7 @@
 # Yard Guard Landscaping - Comprehensive Website Analysis
 
 > **Document Purpose:** Complete reference of all website content for business improvement planning
-> **Website:** https://www.yardguardlandscaping.com
+> **Website:** https://ygtoronto.com
 > **Analysis Date:** December 26, 2025
 
 ---
@@ -690,4 +690,4 @@ HOME | SERVICES (dropdown) | ABOUT | CONTACT
 ---
 
 *Document generated for business improvement analysis purposes*
-*All content extracted directly from https://www.yardguardlandscaping.com*
+*All content extracted directly from https://ygtoronto.com*

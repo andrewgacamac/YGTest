@@ -4,7 +4,7 @@
 
 This repository contains business analysis, market research, and strategic planning documents for **Yard Guard Landscaping**, a landscaping company based in Mississauga, Ontario, serving the Greater Toronto Area (GTA).
 
-**Website:** https://www.yardguardlandscaping.com
+**Website:** https://ygtoronto.com
 **Owner:** Michael Kasowski
 **Phone:** (647) 216-7787
 **Service Areas:** Mississauga, Etobicoke, GTA

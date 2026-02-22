@@ -2,7 +2,7 @@
 
 ```
                     ┌─────────────────────────────────────────┐
-                    │     yardguardlandscaping.com            │
+                    │     ygtoronto.com            │
                     │            (HOME)                       │
                     └─────────────────┬───────────────────────┘
                                       │
@@ -63,7 +63,7 @@
 ## Hierarchical View
 
 ```
-yardguardlandscaping.com/
+ygtoronto.com/
 │
 ├── HOME (/)
 │   └── Contains: Hero, Services overview, Contact form, Social links

@@ -231,7 +231,7 @@ Launch with **THREE packages only:**
 
 ### 2.3 Website Updates
 
-**Add to yardguardlandscaping.com:**
+**Add to ygtoronto.com:**
 
 1. **New Service Page: "Artificial Turf Installation"**
    - Benefits for Canadian homeowners

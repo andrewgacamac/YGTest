@@ -228,8 +228,8 @@ index.html footer phone "(647) 216-7787" is plain text, not a link. Phase 2: "Ph
 **Verify:** Inspect the footer phone number on index.html. It should be wrapped in `<a href="tel:+16472167787">`.
 
 ### 49. Make footer email a clickable `mailto:` link **[COMPLETED]**
-Same issue. `info@yardguardlandscaping.com` is plain text in the footer.
-**Verify:** Footer email should be wrapped in `<a href="mailto:info@yardguardlandscaping.com">`.
+Same issue. `info@ygtoronto.com` is plain text in the footer.
+**Verify:** Footer email should be wrapped in `<a href="mailto:info@ygtoronto.com">`.
 
 ### 50. Add mobile hamburger menu **[COMPLETED]**
 On screens under 1023px, the navigation is `display: none` with no hamburger toggle. Mobile users can only use the header CTA button or mobile sticky bar. Phase 3: mobile-first design is mandatory.
@@ -245,7 +245,7 @@ index.html nav order: Home, How It Works, Pricing & Products, Gallery, FAQ, Cont
 
 ### 52. Add canonical `<link>` tags to all pages **[COMPLETED]**
 No pages have `<link rel="canonical">`. This prevents duplicate content issues if the site is accessible at multiple URLs.
-**Verify:** View page source. Each page has `<link rel="canonical" href="https://www.yardguardlandscaping.com/[page].html">`.
+**Verify:** View page source. Each page has `<link rel="canonical" href="https://ygtoronto.com/[page].html">`.
 
 ### 53. Add Open Graph meta tags for social sharing **[COMPLETED]**
 No pages have `og:title`, `og:description`, `og:image` meta tags. When pages are shared on Facebook/Instagram, they will show no preview.
