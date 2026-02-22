@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+function initMain() {
     try {
         if (window.lucide) {
             lucide.createIcons();
@@ -12,7 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initSlider();
     initAccordions();
     initMobileMenu();
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMain);
+} else {
+    initMain();
+}
 
 // Interactive Before/After Slider
 function initSlider() {
