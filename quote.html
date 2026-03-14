@@ -277,7 +277,8 @@
        ======================================== */
     .quote-page {
       margin-top: 0;
-      min-height: calc(100vh - 80px); /* fixed */
+      min-height: calc(100vh - 80px);
+      /* fixed */
       display: flex;
     }
 
@@ -1037,12 +1038,13 @@
     <div class="header__container">
       <a class="header__logo" href="index.html"><img alt="Yard Guard Landscaping" src="images/logo.webp" /></a>
       <button aria-expanded="false" aria-label="Toggle Menu" class="mobile-menu-toggle">
-    <svg width="28" height="28" fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="4" x2="20" y1="12" y2="12"></line>
-        <line x1="4" x2="20" y1="6" y2="6"></line>
-        <line x1="4" x2="20" y1="18" y2="18"></line>
-    </svg>
-</button>
+        <svg width="28" height="28" fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linecap="round"
+          stroke-linejoin="round">
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        </svg>
+      </button>
       <nav aria-label="Main navigation" class="header__nav" role="navigation">
         <a class="nav-link" href="index.html">Home</a><a class="nav-link" href="how-it-works.html">How It Works</a><a
           class="nav-link" href="products.html">Pricing &amp; Products</a><a class="nav-link"
@@ -1151,7 +1153,7 @@
               </select>
               <p class="form-hint">Don't worry if you're not sure - we'll measure during the consultation</p>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display: none;">
               <label class="form-label" for="yardImage">Upload a photo of your yard (Optional)</label>
               <input accept="image/*" class="form-input" id="yardImage" multiple="" name="yardImage" type="file" />
               <p class="form-hint">Upload a photo to see what your yard could look like with artificial turf!</p>
@@ -1380,8 +1382,8 @@
             target="_blank"><i data-lucide="facebook"></i></a>
           <a class="footer__social-link" href="https://www.instagram.com/yardguardlandscaping/"
             rel="noopener noreferrer" target="_blank"><i data-lucide="instagram"></i></a>
-          <a class="footer__social-link" href="https://ygtoronto.com" rel="noopener noreferrer"
-            target="_blank"><i data-lucide="globe"></i></a>
+          <a class="footer__social-link" href="https://ygtoronto.com" rel="noopener noreferrer" target="_blank"><i
+              data-lucide="globe"></i></a>
         </div>
       </div>
       <div class="footer__column">
@@ -1477,7 +1479,7 @@
     });
   </script>
 
-<script src="assets/js/main.js" type="module"></script>
+  <script src="assets/js/main.js" type="module"></script>
 </body>
 
 </html>
