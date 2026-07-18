@@ -20,11 +20,4 @@ export default defineConfig({
             input,
         },
     },
-    server: {
-        // Forward form submissions to the standalone email backend during dev.
-        // In production, route the site's /api path to the backend instead.
-        proxy: {
-            '/api': 'http://localhost:3000',
-        },
-    },
 });

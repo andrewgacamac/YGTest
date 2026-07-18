@@ -93,17 +93,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Endpoint that emails the lead to the owner. Same-origin "/api/quote" by
-// default (proxied in dev, routed to the backend in prod); override with
-// window.QUOTE_ENDPOINT or VITE_QUOTE_ENDPOINT if the backend is elsewhere.
+// URL of the DigitalOcean Function that emails the lead via Resend. Set the
+// deployed function URL here (or via window.QUOTE_ENDPOINT). It's a public
+// endpoint, not a secret — the Resend key lives inside the function, not here.
 const QUOTE_ENDPOINT =
     (typeof window !== 'undefined' && window.QUOTE_ENDPOINT) ||
     import.meta.env.VITE_QUOTE_ENDPOINT ||
     '/api/quote';
-
-// Client-side guard so oversized photos are caught before upload. Photos are
-// sent untransformed; we only reject, never resize.
-const MAX_FILE_BYTES = 10 * 1024 * 1024; // must match the server limit
 
 async function handleFormSubmit(e) {
     e.preventDefault();
@@ -111,28 +107,34 @@ async function handleFormSubmit(e) {
     const btn = form.querySelector('button[type="submit"]');
     const originalText = btn.innerHTML;
 
-    // Reject oversized photos up front with a clear message (originals unchanged).
-    const imageFiles = document.getElementById('yardImage')?.files;
-    if (imageFiles && imageFiles.length > 0) {
-        for (const file of imageFiles) {
-            if (file.size > MAX_FILE_BYTES) {
-                alert(`The photo "${file.name}" is larger than 10MB. Please choose a smaller image, or remove it — photos are optional.`);
-                return;
-            }
-        }
-    }
-
     try {
         btn.innerHTML = 'Sending...';
         btn.disabled = true;
 
-        // Send the whole form (fields + any photos) as multipart/form-data.
-        // The backend validates it and emails the lead via Resend.
-        const formData = new FormData(form);
+        // Collect the form fields into a JSON payload for the function.
+        const fd = new FormData(form);
+        const payload = {
+            firstName: fd.get('firstName') || '',
+            lastName: fd.get('lastName') || '',
+            email: fd.get('email') || '',
+            phone: fd.get('phone') || '',
+            package: fd.get('package') || '',
+            project_type: fd.getAll('project_type'),
+            size: fd.get('size') || '',
+            address: fd.get('address') || '',
+            city: fd.get('city') || '',
+            postalCode: fd.get('postalCode') || '',
+            timeline: fd.get('timeline') || '',
+            howHeard: fd.get('howHeard') || '',
+            message: fd.get('message') || '',
+            'casl-optin': fd.get('casl-optin') ? true : false,
+            _gotcha: fd.get('_gotcha') || '', // honeypot
+        };
 
         const response = await fetch(QUOTE_ENDPOINT, {
             method: 'POST',
-            body: formData,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
         });
 
         if (!response.ok) {

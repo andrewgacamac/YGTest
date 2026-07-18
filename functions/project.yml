@@ -1,0 +1,24 @@
+# DigitalOcean Functions project for the YardGuard quote-form email endpoint.
+# Deploy with:  doctl serverless deploy functions/
+# Env values below are interpolated from functions/.env at deploy time
+# (that file is gitignored — secrets never land in the repo).
+
+parameters: {}
+packages:
+  - name: api
+    environment: {}
+    functions:
+      - name: quote
+        binary: false
+        runtime: 'nodejs:18'
+        web: true
+        webSecure: false
+        parameters: {}
+        environment:
+          RESEND_API_KEY: ${RESEND_API_KEY}
+          LEAD_NOTIFY_EMAIL: ${LEAD_NOTIFY_EMAIL}
+          FROM_EMAIL: ${FROM_EMAIL}
+          ALLOWED_ORIGIN: ${ALLOWED_ORIGIN}
+        limits:
+          timeout: 15000
+          memory: 256
