@@ -66,15 +66,14 @@ function buildEmailHtml(fields, projectTypes) {
   </body></html>`;
 }
 
-function response(statusCode, obj, origin) {
+function response(statusCode, obj) {
+  // NOTE: DigitalOcean's web-function platform adds permissive CORS headers
+  // (Access-Control-Allow-Origin: * etc.) automatically. We must NOT add our
+  // own, or the response ends up with duplicate ACAO headers and browsers
+  // reject it as invalid. So only set Content-Type here.
   return {
     statusCode,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': origin || '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(obj),
   };
 }
