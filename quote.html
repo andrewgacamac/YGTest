@@ -1076,6 +1076,12 @@
           <div class="form-progress__step" data-step="3"></div>
         </div>
         <form id="quoteForm">
+          <!-- Honeypot: hidden from real users; bots that fill it are rejected -->
+          <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+            <label>Leave this field empty
+              <input autocomplete="off" name="_gotcha" tabindex="-1" type="text" value="" />
+            </label>
+          </div>
           <!-- Step 1: Project Details -->
           <div class="form-step active" data-step="1">
             <span class="form-step__number">1</span>

@@ -93,119 +93,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Endpoint that emails the lead to the owner. Same-origin "/api/quote" by
+// default (proxied in dev, routed to the backend in prod); override with
+// window.QUOTE_ENDPOINT or VITE_QUOTE_ENDPOINT if the backend is elsewhere.
+const QUOTE_ENDPOINT =
+    (typeof window !== 'undefined' && window.QUOTE_ENDPOINT) ||
+    import.meta.env.VITE_QUOTE_ENDPOINT ||
+    '/api/quote';
+
+// Client-side guard so oversized photos are caught before upload. Photos are
+// sent untransformed; we only reject, never resize.
+const MAX_FILE_BYTES = 10 * 1024 * 1024; // must match the server limit
+
 async function handleFormSubmit(e) {
     e.preventDefault();
     const form = e.target;
     const btn = form.querySelector('button[type="submit"]');
     const originalText = btn.innerHTML;
 
+    // Reject oversized photos up front with a clear message (originals unchanged).
+    const imageFiles = document.getElementById('yardImage')?.files;
+    if (imageFiles && imageFiles.length > 0) {
+        for (const file of imageFiles) {
+            if (file.size > MAX_FILE_BYTES) {
+                alert(`The photo "${file.name}" is larger than 10MB. Please choose a smaller image, or remove it — photos are optional.`);
+                return;
+            }
+        }
+    }
+
     try {
         btn.innerHTML = 'Sending...';
         btn.disabled = true;
 
-        // Dynamic import of Supabase
-        const { supabase } = await import('../lib/supabase.js');
-
+        // Send the whole form (fields + any photos) as multipart/form-data.
+        // The backend validates it and emails the lead via Resend.
         const formData = new FormData(form);
 
-        // --- Supabase Integration ---
-
-        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://rjwaunghmcihpmockiap.supabase.co';
-        const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_2wpXUJklTjkVJGAJnb5Wqg_6DG55FRO';
-
-        // 1. Prepare Data Object for the Lead
-        let userMessage = formData.get('message') || '';
-        const projectTypes = formData.getAll('project_type');
-
-        const leadPayload = {
-            first_name: formData.get('firstName'),
-            last_name: formData.get('lastName'),
-            email: formData.get('email'),
-            phone: formData.get('phone') || null,
-            address: formData.get('address'),
-            city: formData.get('city'),
-            postal_code: formData.get('postalCode'),
-            package_interest: formData.get('package'),
-            project_type: projectTypes,
-            approximate_size: formData.get('size'),
-            timeline: formData.get('timeline'),
-            referral_source: formData.get('howHeard'),
-            message_content: userMessage,
-        };
-
-        console.log("Submitting Payload:", leadPayload);
-
-        // 2. Insert Lead Data using Direct REST API
-        const rpcEndpoint = `${supabaseUrl}/rest/v1/rpc/submit_lead_v2`;
-
-        const response = await fetch(rpcEndpoint, {
+        const response = await fetch(QUOTE_ENDPOINT, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'apikey': supabaseAnonKey,
-                'Authorization': `Bearer ${supabaseAnonKey}`
-            },
-            body: JSON.stringify({ payload: leadPayload })
+            body: formData,
         });
 
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(`API Error: ${errorData.message || response.statusText}`);
-        }
-
-        const leadId = await response.json();
-        console.log("Lead Created via RPC:", leadId);
-
-        // 3. Upload Photos and Link to Lead utilizing Database RPC
-        const imageFiles = document.getElementById('yardImage')?.files;
-
-        if (imageFiles && imageFiles.length > 0) {
-            for (let i = 0; i < imageFiles.length; i++) {
-                const imageFile = imageFiles[i];
-                const fileExt = imageFile.name.split('.').pop();
-                const fileName = `${leadId}/${Date.now()}_${i}_original.${fileExt}`;
-                const storageUrl = `${supabaseUrl}/storage/v1/object/raw_uploads/${fileName}`;
-
-                try {
-                    const uploadResponse = await fetch(storageUrl, {
-                        method: 'POST',
-                        headers: {
-                            'apikey': supabaseAnonKey,
-                            'Authorization': `Bearer ${supabaseAnonKey}`,
-                            'Content-Type': imageFile.type || 'application/octet-stream',
-                            'x-upsert': 'false'
-                        },
-                        body: imageFile
-                    });
-
-                    if (uploadResponse.ok) {
-                        // 4. Link the uploaded photo to the lead ID in the Database
-                        const linkRpcEndpoint = `${supabaseUrl}/rest/v1/rpc/link_photo_to_lead`;
-                        const linkResponse = await fetch(linkRpcEndpoint, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'apikey': supabaseAnonKey,
-                                'Authorization': `Bearer ${supabaseAnonKey}`
-                            },
-                            body: JSON.stringify({
-                                p_lead_id: leadId,
-                                p_original_path: fileName
-                            })
-                        });
-
-                        if (!linkResponse.ok) {
-                            console.error('Photo Link Failed:', await linkResponse.text());
-                        } else {
-                            console.log(`Photo successfully uploaded and linked to lead ${leadId}`);
-                        }
-                    } else {
-                        console.error('Photo Upload Failed:', await uploadResponse.text());
-                    }
-                } catch (err) {
-                    console.error("Upload/Link error:", err);
-                }
-            }
+            let message = 'Something went wrong. Please try again or call (647) 216-7787.';
+            try {
+                const errorData = await response.json();
+                if (errorData && errorData.error) message = errorData.error;
+            } catch (_) { /* non-JSON error, keep default */ }
+            throw new Error(message);
         }
 
         // GA4 Macro-conversion: Lead Generation
