@@ -35,3 +35,6 @@ debug_*.mjs
 fix_supabase_*.sql
 FRONTEND_PROMPT.md
 NewArch/
+
+# doctl serverless deploy artifact
+functions/.deployed/

@@ -1430,7 +1430,9 @@
     </div>
   </footer>
   <!-- Initialize Lucide Icons -->
-  <!-- Initialize Lucide Icons -->
+  <!-- Quote form endpoint: the deployed DigitalOcean Function (public URL; the
+       Resend key lives inside the function, never here). Runs before the module. -->
+  <script>window.QUOTE_ENDPOINT = "https://faas-tor1-70ca848e.doserverless.co/api/v1/web/fn-aff51731-f84e-4458-a853-9d679bf3c80e/api/quote";</script>
   <script src="./src/js/quote-logic.js" type="module"></script>
   <!-- Fallback Navigation Script for file:// protocol -->
   <script>

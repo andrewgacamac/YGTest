@@ -15,10 +15,10 @@ packages:
         webSecure: false
         parameters: {}
         environment:
-          RESEND_API_KEY: ${RESEND_API_KEY}
-          LEAD_NOTIFY_EMAIL: ${LEAD_NOTIFY_EMAIL}
-          FROM_EMAIL: ${FROM_EMAIL}
-          ALLOWED_ORIGIN: ${ALLOWED_ORIGIN}
+          RESEND_API_KEY: "${RESEND_API_KEY}"
+          LEAD_NOTIFY_EMAIL: "${LEAD_NOTIFY_EMAIL}"
+          FROM_EMAIL: "${FROM_EMAIL}"
+          ALLOWED_ORIGIN: "${ALLOWED_ORIGIN}"
         limits:
           timeout: 15000
           memory: 256
