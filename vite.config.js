@@ -20,4 +20,12 @@ export default defineConfig({
             input,
         },
     },
+    server: {
+        // Dev only: proxy /api to the local function wrapper
+        // (functions/dev-server.mjs). Production uses window.QUOTE_ENDPOINT
+        // pointed at the deployed DigitalOcean Function URL instead.
+        proxy: {
+            '/api': 'http://localhost:3000',
+        },
+    },
 });
