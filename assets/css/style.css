@@ -513,8 +513,14 @@ h4 {
 }
 
 @media (max-width: 767px) {
+  .hero__headline {
+    font-size: 30px;
+    line-height: 1.15;
+  }
+
   .hero__subheadline {
-    font-size: 18px;
+    font-size: 17px;
+    margin-bottom: 24px;
   }
 }
 

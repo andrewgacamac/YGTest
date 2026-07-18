@@ -279,6 +279,10 @@
         display: none;
       }
 
+      .header__cta {
+        display: none;
+      }
+
       .header__nav.active {
         display: flex;
         flex-direction: column;
@@ -413,6 +417,16 @@
     }
 
     @media (max-width: 767px) {
+      .packages-grid,
+      .auto-style-49,
+      .auto-style-6,
+      .auto-style-40 {
+        /* !important: these grids' base multi-column definitions appear later in
+           the file, so they'd otherwise win over this mobile override. Stacks the
+           packages / cost-comparison / payment cards to 1 column on phones. */
+        grid-template-columns: 1fr !important;
+      }
+
       .packages-section {
         padding: 48px 16px;
       }
