@@ -23,7 +23,7 @@ packages:
           # redeploy. Comma-separate for multiple. Leave "" to disable.
           # CC  = visible copy;  BCC = blind copy (hidden from other recipients).
           LEAD_CC_EMAIL: ""
-          LEAD_BCC_EMAIL: ""
+          LEAD_BCC_EMAIL: "goldenorchard1@icloud.com"
         limits:
           timeout: 15000
           memory: 256
