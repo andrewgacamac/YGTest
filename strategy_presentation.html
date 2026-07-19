@@ -598,6 +598,33 @@
             padding-top: 15px;
         }
 
+        /* Mobile: stack all multi-column grids into a single column */
+        @media (max-width: 767px) {
+            .stat-grid,
+            .card-grid,
+            .package-grid,
+            .vs-container,
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Wide tables scroll sideways instead of forcing the page wide */
+            .styled-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            /* Scale down oversized slide headings so they fit a phone */
+            .cover-title {
+                font-size: 2rem;
+            }
+
+            .roi-number {
+                font-size: 3rem;
+            }
+        }
+
         /* Print Styles */
         @media print {
             .page {
@@ -988,7 +1015,7 @@
 </div>
 <div class="highlight-box">
 <h3>Target neighbourhoods</h3>
-<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 20px;">
 <div>
 <strong>Lorne Park</strong><br/>
 <span style="opacity: 0.8;">$1.5M+ homes, large lots</span>
