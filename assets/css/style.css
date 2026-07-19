@@ -425,7 +425,7 @@ h4 {
 .hero__slider-handle::before {
   content: '';
   position: absolute;
-  top: 50%;
+  top: 22%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50px;
@@ -438,7 +438,7 @@ h4 {
 .hero__slider-handle::after {
   content: '< >';
   position: absolute;
-  top: 50%;
+  top: 22%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: monospace;
@@ -521,6 +521,12 @@ h4 {
   .hero__subheadline {
     font-size: 17px;
     margin-bottom: 24px;
+  }
+
+  /* Handle circle near the top-center (clear sky) so it clears the headline/CTAs */
+  .hero__slider-handle::before,
+  .hero__slider-handle::after {
+    top: 9%;
   }
 }
 
