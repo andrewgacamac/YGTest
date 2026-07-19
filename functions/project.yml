@@ -19,6 +19,11 @@ packages:
           LEAD_NOTIFY_EMAIL: "${LEAD_NOTIFY_EMAIL}"
           FROM_EMAIL: "${FROM_EMAIL}"
           ALLOWED_ORIGIN: "${ALLOWED_ORIGIN}"
+          # Optional extra recipients — set the address(es) here to enable, then
+          # redeploy. Comma-separate for multiple. Leave "" to disable.
+          # CC  = visible copy;  BCC = blind copy (hidden from other recipients).
+          LEAD_CC_EMAIL: ""
+          LEAD_BCC_EMAIL: ""
         limits:
           timeout: 15000
           memory: 256

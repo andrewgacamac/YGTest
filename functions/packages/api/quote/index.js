@@ -78,6 +78,16 @@ function response(statusCode, obj) {
   };
 }
 
+// Split a comma/semicolon-separated list of addresses into a clean array.
+// Lets LEAD_NOTIFY_EMAIL / LEAD_CC_EMAIL / LEAD_BCC_EMAIL each hold one or more
+// recipients, e.g. "michael@ygtoronto.com, andrew@me.com".
+function parseRecipients(value) {
+  return String(value || '')
+    .split(/[,;]/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
 async function main(args) {
   const origin = process.env.ALLOWED_ORIGIN || '*';
   const method = String(args.__ow_method || 'post').toLowerCase();
@@ -89,6 +99,8 @@ async function main(args) {
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
   const LEAD_NOTIFY_EMAIL = process.env.LEAD_NOTIFY_EMAIL;
   const FROM_EMAIL = process.env.FROM_EMAIL || 'YardGuard Quotes <onboarding@resend.dev>';
+  const LEAD_CC_EMAIL = process.env.LEAD_CC_EMAIL;   // optional, visible copy
+  const LEAD_BCC_EMAIL = process.env.LEAD_BCC_EMAIL; // optional, blind copy
   if (!RESEND_API_KEY || !LEAD_NOTIFY_EMAIL) {
     return response(500, { error: 'The quote form is not configured. Please call us instead.' }, origin);
   }
@@ -114,10 +126,15 @@ async function main(args) {
   const subject = `New Quote Request — ${args.firstName} ${args.lastName}${args.package ? ` (${args.package})` : ''}`;
   const emailBody = {
     from: FROM_EMAIL,
-    to: [LEAD_NOTIFY_EMAIL],
+    to: parseRecipients(LEAD_NOTIFY_EMAIL),
     subject,
     html: buildEmailHtml(args, projectTypes),
   };
+  // Optional CC (visible) and BCC (blind) copies.
+  const cc = parseRecipients(LEAD_CC_EMAIL);
+  const bcc = parseRecipients(LEAD_BCC_EMAIL);
+  if (cc.length) emailBody.cc = cc;
+  if (bcc.length) emailBody.bcc = bcc;
   // Let the owner reply straight to the customer.
   if (args.email && /.+@.+\..+/.test(args.email)) emailBody.reply_to = args.email;
 
