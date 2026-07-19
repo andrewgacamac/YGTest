@@ -19,11 +19,11 @@ packages:
           LEAD_NOTIFY_EMAIL: "${LEAD_NOTIFY_EMAIL}"
           FROM_EMAIL: "${FROM_EMAIL}"
           ALLOWED_ORIGIN: "${ALLOWED_ORIGIN}"
-          # Optional extra recipients — set the address(es) here to enable, then
-          # redeploy. Comma-separate for multiple. Leave "" to disable.
-          # CC  = visible copy;  BCC = blind copy (hidden from other recipients).
+          # BCC = blind copy (hidden from other recipients); set in .env.
+          LEAD_BCC_EMAIL: "${LEAD_BCC_EMAIL}"
+          # CC = visible copy. Empty by default (doctl can't substitute an empty
+          # .env value); put an address here directly to enable, then redeploy.
           LEAD_CC_EMAIL: ""
-          LEAD_BCC_EMAIL: "goldenorchard1@icloud.com"
         limits:
           timeout: 15000
           memory: 256
