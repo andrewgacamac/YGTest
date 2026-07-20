@@ -131,9 +131,12 @@ npm run dev
 
 ## 6. Outstanding / TODO
 
-- [ ] **Verify `ygtoronto.com` in Resend** (add SPF/DKIM DNS records in DigitalOcean
-      → Networking → Domains). Until done, leads can only deliver to the Resend
-      account's own address, and the sender is the test address `onboarding@resend.dev`.
-- [ ] After verification: set `FROM_EMAIL=... <quotes@ygtoronto.com>` and
-      `LEAD_NOTIFY_EMAIL=`Michael's inbox in `functions/.env`, then redeploy the function.
+- [x] **Sending domain verified** — `contact.ygtoronto.com` is verified in Resend.
+      Live function sends FROM `quotes@contact.ygtoronto.com` TO
+      `contact@yardguardlandscaping.com`, BCC `goldenorchard1@icloud.com` (safety net).
+- [ ] **Confirm `contact@yardguardlandscaping.com` actually receives** — after a test
+      submission, check that inbox. If the lead only shows up in the BCC
+      (`goldenorchard1@icloud.com`) and not there, that mailbox needs email hosting/MX
+      set up on `yardguardlandscaping.com`, or change the recipient.
+- [ ] Once confirmed receiving, optionally drop the BCC safety net (`LEAD_BCC_EMAIL`).
 - [ ] Submit `sitemap.xml` to Google Search Console + Bing Webmaster Tools.
